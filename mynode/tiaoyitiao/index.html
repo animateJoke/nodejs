@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            text-align: center;
+        }
+
+        canvas {
+            border: 1px solid #dee1e4;
+        }
+    </style>
+</head>
+<body>
+<canvas width="288" height="512"></canvas>
+<script src="jquery/jquery-1.11.1.min.js"></script>
+<script>
+    $(function(){
+        var arr=[];
+        $("canvas").on("click",function(e){
+            var position={
+                x:e.offsetX,
+                y:e.offsetY
+            }
+            arr.push(position);
+            if(arr.length>=2){
+                var len=Math.sqrt(Math.pow((arr[0].x-arr[1].x),2)+Math.pow((arr[0].y-arr[1].y),2));
+                $.ajax({
+                    url:"http://localhost:1444/jamp",
+                    type:"post",
+                    data:{
+                        len:len
+                    }
+                },function(res){
+                    console.log(res);
+                });
+
+                //清空数组
+                arr.length=0
+            }
+
+        });
+       var ctx= $("canvas")[0].getContext("2d");
+        var img = new Image();
+
+        setInterval(function() {
+            // 添加随机参数改变防止图片缓存
+            img.src = "./screen.png?" + Math.random();
+            img.onload = function() {
+                ctx.drawImage(img, 0, 0, 288, 512);
+            }
+        }, 500)
+    })
+</script>
+</body>
+</html>

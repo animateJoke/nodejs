@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>千锋学员自动评价</title>
+</head>
+<body>
+<p>
+    <label>
+    账号：<input type="text" id="Account"/>
+    </label>
+</p>
+<p>
+    <label>
+        密码：<input type="password" id="PassWord"/>
+    </label>
+</p>
+<p>
+    <button id="btn">提交</button>
+</p>
+<script src="../js/jquery/jquery-1.11.1.min.js"></script>
+<script>
+$("#btn").on("click",function(){
+    $.ajax({
+        url:"http://localhost:7890",
+        type:"post",
+        dateType:"json",
+        data:{
+            Account:$("#Account").val(),
+            PassWord:$("#PassWord").val()
+        }
+    }).then(function(res){
+        console.log(res);
+    })
+})
+</script>
+</body>
+</html>
