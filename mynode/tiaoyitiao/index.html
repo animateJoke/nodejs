@@ -26,6 +26,12 @@
 <script src="jquery/jquery-1.11.1.min.js"></script>
 <script>
     $(function(){
+        $.ajax({
+            url:"http://localhost:1444/",
+            type:"get",
+        },function(res){
+            console.log(res);
+        });
         var arr=[];
         $("canvas").on("click",function(e){
             var position={

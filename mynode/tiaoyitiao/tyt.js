@@ -5,15 +5,19 @@ var exec = require('child_process').exec;
 var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-exec("adb shell mkdir -p /sdcard/wscats", function(err, stdout, stderr){
-    exec("adb shell screencap -p /sdcard/wscats/screen.png", function(err, stdout, stderr){
-        exec("adb pull /sdcard/wscats/screen.png .", function(err, stdout, stderr){
-            console.log("刷新图片");
-            exec("adb shell rm -r /sdcard/wscats/", function(err, stdout, stderr){
+app.get("/",function(req, res){
+    res.append("Access-Control-Allow-Origin","*");
+    exec("adb shell mkdir -p /sdcard/wscats", function(err, stdout, stderr){
+        exec("adb shell screencap -p /sdcard/wscats/screen.png", function(err, stdout, stderr){
+            exec("adb pull /sdcard/wscats/screen.png .", function(err, stdout, stderr){
+                console.log("刷新图片");
+                exec("adb shell rm -r /sdcard/wscats/", function(err, stdout, stderr){
+                });
             });
         });
     });
-});
+})
+
 
 
 
