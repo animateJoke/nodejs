@@ -23,7 +23,6 @@ app.post("/savehtml",function(req,res){
     connection.query("insert into html set ?",req.body,function(){
         res.send("ok")
     })
-
 });
 app.get("/gethtml",function(req,res){
 

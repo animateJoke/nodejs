@@ -97,6 +97,7 @@
         arr.push("内容为：");
         arr.push(UE.getEditor('editor').getContent());
         alert(arr.join("\n"));
+        console.log(UE.getEditor('editor').getContent());
         $.ajax({
             url:"http://localhost:5656/savehtml",
             type:"post",

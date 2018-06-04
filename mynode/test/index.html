@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        div{
+            width:400px;
+            height:200px;
+            border:1px solid #ccc;
+            margin:20px auto;
+            padding:20px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <span></span><b>|</b>
+</div>
+</body>
+<script src="jquery/jquery-1.11.1.min.js"></script>
+<script>
+    $(function(){
+        var str="修饰符是以半角句号 . 指明的特殊后缀，用于指出一个指定应该以特殊方式绑定。例如，.prevent 修饰符告诉 v-on 指令对于触发的事件调用";
+        var arr= str.split("");
+        var index=0;
+        var timer=setInterval(function(){
+            index%2==0?$("b").show():$("b").hide();
+            $("span").text($("span").text()+arr[index]);
+            index++;
+
+            if(index==arr.length){
+                clearInterval(timer);
+                $("b").hide()
+            }
+        },100)
+    })
+</script>
+</html>
