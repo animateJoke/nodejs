@@ -1,32 +1,9 @@
-const express=require("express");
-const router = express.Router();
-const bodyParser=require("body-parser");
-const request = require('request');
-
-const app=express();
-app.use(bodyParser.urlencoded({
-    extended: false
-}));
-
-//目标服务器的地址
-var serverUrl='https://private-e91fc7-animate.apiary-mock.com/';
-
-app.use('/', function(req, res) {
-    var url = serverUrl + req.url;
-    console.log("request url==>",url);
-    req.pipe(request(url)).pipe(res);
-});
-
-// parse application/json
-app.use(bodyParser.json());
-
-app.use(express.static(__dirname + '/files'));
-app.use(express.static('uploads'));
-
-app.use("/group",require("./router/home"));
-var server = app.listen(8081,"localhost", function () {
-    var host = server.address().address
-    var port = server.address().port
-    console.log("应用实例，访问地址为 http://%s:%s", host, port)
-
+const express = require('express');
+const proxy = require('http-proxy-middleware');//引入代理中间件
+const app = express();
+// Add middleware for http proxying
+const apiProxy = proxy('/api', { target: 'https://private-906dd-millken.apiary-mock.com',changeOrigin: true });
+app.use('/api/*', apiProxy);//api子目录下的都是用代理
+app.listen(3000, () => {
+    console.log('Listening on: http://localhost:3000');
 });
